@@ -8,6 +8,8 @@ public class Book {
 	private String pubDate;
 	
 	
+	
+	
 	public int getBookNo() {
 		return bookNo;
 	}
@@ -41,8 +43,10 @@ public class Book {
 	
 	@Override
 	public String toString() {
-		return "Book [bookNo=" + bookNo + ", bookTitle=" + bookTitle + ", bookWriter=" + bookWriter + ", publish="
-				+ publish + ", pubDate=" + pubDate + "]";
+		return String.format("%6d %-10s %-5s %5s %s", bookNo, bookTitle, bookWriter, publish, pubDate);
+//		return "Book [bookNo=" + bookNo + ", bookTitle=" + bookTitle + ", bookWriter=" + bookWriter + ", publish="
+//		+ publish + ", pubDate=" + pubDate + "]";
+//		return bookNo + "\t" + bookTitle + "\t" + bookWriter + "\t\t" + publish + "\t" + pubDate;
 	}
 	
 	
