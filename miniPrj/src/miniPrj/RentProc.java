@@ -8,7 +8,7 @@ public class RentProc {
 	Scanner scn = new Scanner(System.in);
 	RentDAO dao = new RentDAO();
 	BookMemDAO bdao = new BookMemDAO();
-
+	
 	void rentBook() {
 		int mno = -1;
 		while (true) {

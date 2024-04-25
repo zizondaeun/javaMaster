@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class BookDAO {
@@ -14,6 +15,7 @@ public class BookDAO {
 	PreparedStatement psmt;
 	ResultSet rs;
 	
+	Scanner scn = new Scanner(System.in);
 	private void getConn() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		try {
@@ -49,6 +51,8 @@ public class BookDAO {
 		}
 		return list;
 	}
+	//도서관리
+
 	//도서등록
 	boolean insertBook(Book book) {
 		getConn();
@@ -70,6 +74,7 @@ public class BookDAO {
 		}
 		return false;
 	}
+	
 	
 	//도서정보수정
 	boolean updateBook(Book book) {
@@ -115,8 +120,26 @@ public class BookDAO {
 	}
 	
 	//도서검색
-//	public List<Book> bookSelectTitle(String bookTitle){
+//	List<Book> selectBook(Book book) {
+//		getConn();
+//		String sql = " select *\r\n"
+//				+ " from book\r\n"
+//				+ " where book_title like '%?%'";
 //		
+//		List<Book> selectbook = new ArryaList<>();
+//		try {
+//			psmt = conn.prepareStatement(sql);
+//			psmt.setInt(1, booktitle);
+//			
+//			rs = psmt.executeUpdate();
+//			while(rs.next()) {
+//				Book book = new Book();
+//				search.setBookTitle
+//					
+//			
+//				
+//			}
+//		}
 //	}
-	
+//	
 }

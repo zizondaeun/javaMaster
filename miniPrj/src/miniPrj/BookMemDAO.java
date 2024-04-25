@@ -59,7 +59,5 @@ public class BookMemDAO {
 		return list;
 	}
 
-	// 도서대출/반납현황
 
-	// 종료
 }

@@ -88,8 +88,6 @@ public class RentDAO {
 		return false;
 	}
 	
-	//책제목,회원이름
-	
 	// 반납기능
 	public boolean rentBook(TurnBook turnbook) {
 		getConn();
