@@ -58,9 +58,6 @@ public class RentDAO {
 				list.add(rtbook);
 
 			}
-//			for (RentBook rentBook : list) {
-//				System.out.println(rentBook.toString()); 
-//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -97,6 +94,7 @@ public class RentDAO {
 				+ " where tr.mem_no = ?\r\n"
 				+ " and   tr.book_no = ?\r\n"
 				+ " and   tr.return_status = 'N'";
+		
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, turnbook.getMemNo());

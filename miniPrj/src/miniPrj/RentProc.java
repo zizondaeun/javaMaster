@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RentProc {
-	// 대출 책, 회원
+
 	Scanner scn = new Scanner(System.in);
 	RentDAO dao = new RentDAO();
 	BookMemDAO bdao = new BookMemDAO();
 	
-	void rentBook() {
+	void rentBook() { //대출등록
 		int mno = -1;
 		while (true) {
 			System.out.print("회원이름   >> ");
@@ -23,13 +23,13 @@ public class RentProc {
 					System.out.println("조회된 결과가 없습니다. ");
 					continue;
 				}
-				list.forEach(member -> System.out.println(member));
-				System.out.print("회원번호   >> ");
+				list.forEach(member -> System.out.println(member)); //화살표함수
+				System.out.print("회원번호   >> "); //회원번호를 알고있다면
 				mno = Integer.parseInt(scn.nextLine());
 				break;
 			}
 		}
-
+		
 		System.out.print("도서번호   >> ");
 		int bno = Integer.parseInt(scn.nextLine());
 
@@ -38,13 +38,13 @@ public class RentProc {
 		rbook.setMemNo(mno);
 
 		if (dao.rentBook(rbook)) {
-			System.out.println("대출완료");
+			System.out.println("*대출완료*");
 		} else {
-			System.out.println("대출실패");
+			System.out.println("*대출실패*");
 		}
 	}
 
-	void returnBook() {
+	void returnBook() { //반납등록
 		System.out.print("반납할 도서번호 >> ");
 		int bno = Integer.parseInt(scn.nextLine());
 		System.out.print("반납할 회원번호 >> ");
@@ -55,16 +55,16 @@ public class RentProc {
 		tbook.setMemNo(mno);
 
 		if (dao.rentBook(tbook)) {
-			System.out.println("반납완료");
+			System.out.println("*반납완료*");
 		} else {
-			System.out.println("반납실패");
+			System.out.println("*반납실패*");
 		}
 	}
 
-	public void exe() {
+	public void exe() { //대출반납관리
 		boolean run = true;
 		while (run) {
-			System.out.println("1.대출하기 2.반납하기 3.이전메뉴");
+			System.out.println("| 1.대출하기 | 2.반납하기 | 3.이전메뉴 |");
 			System.out.print("선택> ");
 			int menu = Integer.parseInt(scn.nextLine());
 
@@ -75,7 +75,7 @@ public class RentProc {
 			case 2: // 반납.
 				returnBook();
 				break;
-			case 3: // 종료
+			case 3: // 이전화면
 				System.out.println();
 				return;
 			}

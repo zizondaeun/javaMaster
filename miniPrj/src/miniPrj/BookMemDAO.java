@@ -32,10 +32,7 @@ public class BookMemDAO {
 				+ " from member " //
 				+ " where mem_name = nvl(?, mem_name) " //
 				+ " order by mem_no";
-		
-		// sql = "select mem_no,mem_name,mem_phone,mem_birth,mem_address,return_status
-		// from member where mem_name like '%'||?||'%'";
-		
+				
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, name);
