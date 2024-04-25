@@ -17,24 +17,31 @@ public class BookMemDAO {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url,"jsp","jsp");
-		}catch(Exception e) {
+			conn = DriverManager.getConnection(url, "jsp", "jsp");
+		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
 	}
-	
-	//회원조회
-	List<BookMem> bookmemList(){
+
+	// 회원조회
+	List<BookMem> bookmemList(String name) {
 		getConn();
 		List<BookMem> list = new ArrayList<>();
-		String sql = " select *\r\n"
-				+ " from member\r\n"
+		String sql = " select *\r\n" //
+				+ " from member " //
+				+ " where mem_name = nvl(?, mem_name) " //
 				+ " order by mem_no";
+		
+		// sql = "select mem_no,mem_name,mem_phone,mem_birth,mem_address,return_status
+		// from member where mem_name like '%'||?||'%'";
+		
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+
 			rs = psmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				BookMem member = new BookMem();
 				member.setMemNo(rs.getInt("mem_no"));
 				member.setMemName(rs.getString("mem_name"));
@@ -43,17 +50,16 @@ public class BookMemDAO {
 				member.setMemAddress(rs.getString("mem_address"));
 				member.setReturnStatus(rs.getString("return_status"));
 				member.setBookNo(rs.getInt("book_no"));
-				
+
 				list.add(member);
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
-	//도서대출/반납현황
-	
-	
-	//종료
+
+	// 도서대출/반납현황
+
+	// 종료
 }

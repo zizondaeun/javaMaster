@@ -29,7 +29,7 @@ public class RentDAO {
 	List<RentBook> rentList(Search search) {
 		getConn();
 		List<RentBook> list = new ArrayList<>();
-		String sql = "select b.rent_no, b.book_no, m.mem_no, decode(b.return_status,'Y','반납','대출 중') as return_status, bk.book_title, return_date\r\n"
+		String sql = "select b.rent_no, b.book_no, m.mem_no, m.mem_name, decode(b.return_status,'Y','반납','대출 중') as return_status, bk.book_title, return_date\r\n"
 				+ " from rent_book b\r\n"//
 				+ " join member m\r\n"//
 				+ " on b.mem_no = m.mem_no\r\n"//
@@ -50,6 +50,7 @@ public class RentDAO {
 				rtbook.setRentNo(rs.getInt("rent_no"));
 				rtbook.setBookNo(rs.getInt("book_no"));
 				rtbook.setMemNo(rs.getInt("mem_no"));
+				rtbook.setMemName(rs.getString("mem_name"));
 				rtbook.setReturnStatus(rs.getString("return_status"));
 				rtbook.setReturnDate(rs.getString("return_date"));
 				rtbook.setBookTitle(rs.getString("book_title"));
@@ -67,30 +68,52 @@ public class RentDAO {
 
 	}
 
-//				" select rent_no,m.mem_no,bk.book_title,decode(return_status,'Y','반납','대출') as flag\r\n"
-//				+ " from rent_book b\r\n"
-//				+ " join mem m\r\n"
-//				+ " on b.mem_no = m.mem_no\r\n"
-//				+ " join book bk\r\n"
-//				+ " on b.book_no = bk.book_no\r\n"
-//				+ " order by b.rent_no";
-//		try {
-//			psmt = conn.prepareStatement(sql);
-//			rs = psmt.executeQuery();
-//			
-//			while(rs.next()) {
-//				rtbook.setRentNo(rs.getInt("b.rent_no"));
-//				rtbook.setBookNo(rs.getInt("book_no"));
-//				rtbook.setMemNo(rs.getInt("mem_no"));
-//				rtbook.setReturnStatus(rs.getString("return_status"));
-//				rtbook.setReturnDate(rs.getString("return_date"));
-//				rtbook.setBook_title(rs.getString("book_title"));
-//			}
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return list;
-//		
-//	}
+	// 대출기능
+	public boolean rentBook(RentBook rentbook) {
+		getConn();
+		String sql = " insert into rent_book\r\n"
+				+ " values (rent_seq.nextval,?,?,'N',sysdate + 12)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, rentbook.getBookNo());
+			psmt.setInt(2, rentbook.getMemNo());
+			
+			int r = psmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//책제목,회원이름
+	
+	// 반납기능
+	public boolean rentBook(TurnBook turnbook) {
+		getConn();
+		String sql = " \r\n"
+				+ " update rent_book tr\r\n"
+				+ " set return_Status = 'Y'\r\n"
+				+ " where tr.mem_no = ?\r\n"
+				+ " and   tr.book_no = ?\r\n"
+				+ " and   tr.return_status = 'N'";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, turnbook.getMemNo());
+			psmt.setInt(2, turnbook.getBookNo());
+			
+			int r = psmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	
 
 }

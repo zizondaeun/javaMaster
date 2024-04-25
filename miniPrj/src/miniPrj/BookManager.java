@@ -11,11 +11,14 @@ public class BookManager {
 		BookDAO dao = new BookDAO();
 		BookMemDAO bmdao = new BookMemDAO();
 		RentDAO rtdao = new RentDAO();
+		Search search = new Search();
 
 		while (run) {
-			System.out.println("---------------------------------------------------------------------");
+			System.out.println("===========================[도서관 사서 프로그램]==========================");
 			System.out.println("1.도서정보 조회 2.도서등록 3.도서정보수정 4.도서삭제 5.회원조회 6.대출/반납현황 7.종료");
+			System.out.println("=====================================================================");
 			System.out.print("선택> ");
+			
 			int selectNo = sc.nextInt();
 			sc.nextLine();
 			// int selectNo = Integer.parseInt(sc.nextLine());
@@ -23,15 +26,17 @@ public class BookManager {
 			switch (selectNo) {
 			case 1:
 				List<Book> books = dao.bookList();
-				System.out.println("---------------------------------------------------------------------");
-				System.out.println("도서번호\t도서제목\t    저자\t   출판사\t   출판일\n");
-				System.out.println("---------------------------------------------------------------------");
+//				System.out.println("---------------------------------------------------------------------");
+				System.out.println("도서번호\t도서제목\t    저자\t   출판사\t   출판일\n---------------------------------------------------------------------");
+//				System.out.println("---------------------------------------------------------------------");
+//				System.out.printf("도서번호	도서제목		저자		출판사	출판일\n");
+				
 				for (Book book : books) {
 					System.out.println(book.toString());
 				}
 				break;
 			case 2:
-				System.out.print("도서제목 >> ");
+				System.out.print("도서제목   >> ");
 				String bookTitle = sc.nextLine();
 				System.out.print("저자   	>> ");
 				String bookWriter = sc.nextLine();
@@ -57,7 +62,7 @@ public class BookManager {
 				int bookNo = sc.nextInt();
 				sc.nextLine();
 
-				System.out.print("도서제목 >> ");
+				System.out.print("도서제목   >> ");
 				bookTitle = sc.nextLine();
 				System.out.print("저자   	>> ");
 				bookWriter = sc.nextLine();
@@ -80,7 +85,7 @@ public class BookManager {
 				}
 				break;
 			case 4:
-				System.out.print("삭제할 도서번호");
+				System.out.print("삭제할 도서번호   	>>");
 				bookNo = sc.nextInt();
 				sc.nextLine();
 
@@ -90,9 +95,17 @@ public class BookManager {
 					System.out.println("삭제오류");
 				}
 				break;
+//			case 5:	
+//				System.out.print("찾고있는 도서제목   >> ");
+//				String bookName = sc.nextLine();
+//				
+//				if(dao.updateBook(book)) {
+//					
+//				}
+//				
 			case 5:
-				List<BookMem> mems = bmdao.bookmemList();
-				System.out.println("회원번호 회원이름 회원연락처 \t  생년월일    주소     반납현황 도서번호");
+				List<BookMem> mems = bmdao.bookmemList(null);
+				System.out.println("회원번호 회원이름 회원연락처 \t  생년월일\t\t    	주소");
 				System.out.println("---------------------------------------------------------------------");
 				for (BookMem bookmem : mems) {
 					System.out.println(bookmem.toString());
@@ -100,15 +113,20 @@ public class BookManager {
 				break;
 			case 6:
 				List<RentBook> rtbooks = rtdao.rentList(new Search());
-				System.out.println("대출번호	도서번호	회원번호	반납현황	반납일자");
+				System.out.println("대출현황");
+				System.out.println("---------------------------------------------------------------------");
+				System.out.println("대출번호	도서번호(도서제목)	회원번호(회원이름)	반납현황	반납일자");
 				System.out.println("---------------------------------------------------------------------");
 				for (RentBook rtbook : rtbooks) {
 					System.out.println(rtbook.toString());
 				}
+				RentProc proc = new RentProc();
+				proc.exe();
+
 				break; //
 
 			case 7:
-				System.out.println("프로그램종료");
+				System.out.println("프로그램 종료");
 				run = false;
 			}
 		}

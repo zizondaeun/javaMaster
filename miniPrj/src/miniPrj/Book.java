@@ -40,7 +40,7 @@ public class Book {
 	
 	@Override
 	public String toString() {
-		return String.format("%3d %-10s %9s %-9s %-10s", bookNo, bookTitle, bookWriter, publish, pubDate);
+		return String.format("%-3d %-11s %-4s %-9s %-10s", bookNo, bookTitle, bookWriter, publish, pubDate);
 	}
 	
 	

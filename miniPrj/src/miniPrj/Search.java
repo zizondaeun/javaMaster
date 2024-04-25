@@ -1,8 +1,9 @@
 package miniPrj;
 
 public class Search {
-	private String bookNo;//대출
+	private String bookNo; //대출조회
 	private String memNo;
+	
 	public String getBookNo() {
 		return bookNo;
 	}
