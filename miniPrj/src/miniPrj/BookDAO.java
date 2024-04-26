@@ -14,10 +14,10 @@ public class BookDAO {
 	PreparedStatement psmt;
 	ResultSet rs;
 
-	Scanner scn = new Scanner(System.in); //이 클래스에서 쓴적있나?
+	Scanner scn = new Scanner(System.in); 
 
 	private void getConn() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.9:1521:xe"; //192.168.0.9 //localhost
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, "jsp", "jsp");
@@ -25,6 +25,9 @@ public class BookDAO {
 			e.printStackTrace();
 			return;
 		}
+//		finally {
+//			
+//		}
 	}
 
 	// 도서리스트
@@ -153,7 +156,9 @@ public class BookDAO {
 	List<Book> writerSearch(Book book) {
 		getConn();
 		List<Book> list = new ArrayList<>();
-		String sql = " select *\r\n" + " from book\r\n" + " where book_writer like ?";
+		String sql = " select *\r\n" 
+				+ " from book\r\n" 
+				+ " where book_writer like ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -163,8 +168,11 @@ public class BookDAO {
 
 			while (rs.next()) {
 				Book b = new Book();
-				b.setBookTitle("book_title"); //화면에 보일게 두갠데
-				b.setBookWriter("book_writer");
+				b.setBookNo(rs.getInt("book_no")); //화면에 보일게 두갠데
+				b.setBookTitle(rs.getString("book_title"));
+				b.setBookWriter(rs.getString("book_writer"));
+				b.setPublish(rs.getString("publish"));
+				b.setPubDate(rs.getString("pubdate"));
 
 				list.add(b);
 			}

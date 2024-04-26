@@ -37,11 +37,15 @@ public class Book {
 	public void setPubDate(String pubDate) {
 		this.pubDate = pubDate;
 	}
+//	@Override
+//	public String toString() {
+//		return bookNo + "\t" + bookTitle + "\t  " + bookWriter + "\t" + publish + "\t" + pubDate;
+//	}
 	
 	@Override
 	public String toString() {
-		return String.format("%-3d %-11s %-4s %-9s %-10s", bookNo, bookTitle, bookWriter, publish, pubDate);
-	}
+		return String.format("%-7d %-9s %-5s %-9s %10s", bookNo, bookTitle, bookWriter, publish, pubDate);
+	}	
 	
 	
 	

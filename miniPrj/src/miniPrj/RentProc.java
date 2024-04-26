@@ -9,7 +9,7 @@ public class RentProc {
 	RentDAO dao = new RentDAO();
 	BookMemDAO bdao = new BookMemDAO();
 	
-	void rentBook() { //대출등록
+	void rentBook() { //대출하기
 		int mno = -1;
 		while (true) {
 			System.out.print("회원이름   >> ");
@@ -44,7 +44,7 @@ public class RentProc {
 		}
 	}
 
-	void returnBook() { //반납등록
+	void returnBook() { //반납하기
 		System.out.print("반납할 도서번호 >> ");
 		int bno = Integer.parseInt(scn.nextLine());
 		System.out.print("반납할 회원번호 >> ");
@@ -66,19 +66,25 @@ public class RentProc {
 		while (run) {
 			System.out.println("| 1.대출하기 | 2.반납하기 | 3.이전메뉴 |");
 			System.out.print("선택> ");
-			int menu = Integer.parseInt(scn.nextLine());
-
-			switch (menu) {
-			case 1: // 대출.
-				rentBook();
-				break;
-			case 2: // 반납.
-				returnBook();
-				break;
-			case 3: // 이전화면
-				System.out.println();
-				return;
+			try { // 문자 입력 시 예외처리
+				int menu = Integer.parseInt(scn.nextLine());
+				
+				switch (menu) {
+				case 1: // 대출.
+					rentBook();
+					break;
+				case 2: // 반납.
+					returnBook();
+					break;
+				case 3: // 이전화면
+					System.out.println();
+					return;
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("*숫자로 입력하세요.*");
 			}
+			
+			
 		}
 	}
 }

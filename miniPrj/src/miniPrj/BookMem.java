@@ -54,6 +54,7 @@ public class BookMem {
 	}
 	@Override
 	public String toString() {
+		
 		return String.format("%2d %7s %-13s %-20s %-6s", memNo, memName, memPhone, memBirth, memAddress);
 //		return String.format("%2d %7s %-13s %-20s %-6s %2s %7d", memNo, memName, memPhone, memBirth, memAddress, returnStatus, bookNo);
 	}

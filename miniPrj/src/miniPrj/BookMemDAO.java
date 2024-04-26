@@ -14,7 +14,7 @@ public class BookMemDAO {
 	ResultSet rs;
 
 	private void getConn() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.9:1521:xe"; //192.168.0.9 //localhost
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, "jsp", "jsp");
@@ -31,7 +31,7 @@ public class BookMemDAO {
 		String sql = " select *\r\n" //
 				+ " from member " //
 				+ " where mem_name = nvl(?, mem_name) " //
-				+ " order by mem_no";
+				+ " order by mem_no"; 
 				
 		try {
 			psmt = conn.prepareStatement(sql);

@@ -15,7 +15,7 @@ public class RentDAO {
 	ResultSet rs;
 
 	private void getConn() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.9:1521:xe"; //192.168.0.9 //localhost
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, "jsp", "jsp");
@@ -74,6 +74,8 @@ public class RentDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, rentbook.getBookNo());
 			psmt.setInt(2, rentbook.getMemNo());
+//			psmt.setString(3, rentbook.getReturnStatus());
+//			psmt.setString(4, rentbook.getReturnDate());
 			
 			int r = psmt.executeUpdate();
 			if(r > 0) {
